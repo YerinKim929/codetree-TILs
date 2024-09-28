@@ -36,8 +36,10 @@ max_sum = 0
 for r in range(2, n):
     for c in range(1, n):
         # 1이 시작하는 위치 r c
-        for move_r in range(n-r):
-            for move_c in range(n-c):
+        how_r = max(n-r, r)
+        for move_r in range(how_r):
+            how_c = max(n-c, c)
+            for move_c in range(how_c):
                 # 얼마나 움직일 지 정하기 
                 line_sum = how_move(r, c, move_r, move_c)
                 max_sum = max(max_sum, line_sum)
