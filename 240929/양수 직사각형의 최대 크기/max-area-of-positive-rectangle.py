@@ -4,7 +4,7 @@ def is_all_positive(start_r, end_r, start_c, end_c):
 
     for r in range(start_r, end_r+1):
         for c in range(start_c, end_c+1):
-            if board[r][c] < 0:
+            if board[r][c] <= 0:
                 return 0
 
     return 1 
