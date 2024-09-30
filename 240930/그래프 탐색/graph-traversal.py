@@ -3,9 +3,8 @@ import sys
 def dfs(v, num_nodes):
     for cur_v in range(N):
         if graph[v][cur_v] and not visited[cur_v]:
-            num_nodes += 1
             visited[cur_v] = True
-            return dfs(cur_v, num_nodes)
+            num_nodes = dfs(cur_v, num_nodes + 1)
 
     return num_nodes
 
