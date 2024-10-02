@@ -1,6 +1,9 @@
 from collections import deque
 import sys
 
+def in_range(x, y):
+    return 0 <= x < n and 0 <= y < n
+
 def bfs():
     q = deque([[0, 0]])
     dx = [1, -1, 0, 0]
@@ -12,7 +15,7 @@ def bfs():
         for i in range(4):
             nx = cur_v[0]+dx[i]
             ny = cur_v[1]+dy[i]
-            if graph[nx][ny] and not visited[nx][ny]:
+            if in_range(nx, ny) and graph[nx][ny] and not visited[nx][ny]:
                 visited[nx][ny] = 1
                 q.append([nx, ny])
 
