@@ -2,7 +2,7 @@ from collections import deque
 import sys
 
 def in_range(x, y):
-    return 0 <= x < n and 0 <= y < n
+    return 0 <= x < n and 0 <= y < m
 
 def bfs():
     q = deque([[0, 0]])
