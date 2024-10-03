@@ -14,7 +14,7 @@ board = [
 starts = []
 for _ in range(k):
     r, c = map(int, sys.stdin.readline().split())
-    starts.append([r, c])
+    starts.append([r-1, c-1])
 
 
 dx = [1, -1, 0, 0]
