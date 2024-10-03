@@ -10,16 +10,16 @@ board = [
     list(map(int, sys.stdin.readline().split()))
     for _ in range(n)
 ]
-
+visited = [[0]*n for _ in range(n)]
 starts = []
 for _ in range(k):
     r, c = map(int, sys.stdin.readline().split())
     starts.append([r-1, c-1])
+    visited[r-1][c-1] = 1
 
 
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
-visited = [[0]*n for _ in range(n)]
 
 M = len(starts)
 for m in range(M):
