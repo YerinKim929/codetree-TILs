@@ -39,7 +39,7 @@ while True:
                 dfs([r, c])
                 house += 1
 
-    if pre_num <= house:
+    if pre_num < house:
         pre_num = house
         max_k = K 
     if not house:
