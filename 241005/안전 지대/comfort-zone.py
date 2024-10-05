@@ -27,6 +27,7 @@ town = [
 K = 1
 pre_num = 0
 max_k = 1
+sys.setrecursionlimit(N*M)
 
 while True:
 
