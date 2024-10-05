@@ -29,7 +29,7 @@ def bfs(cur_r, cur_c):
                     max_num = board[new_r][new_c]
                     nxt_r, nxt_c = new_r, new_c
                 elif max_num == board[new_r][new_c]:
-                    if nxt_r > new_r or (new_r == new_r and nxt_c > new_c):
+                    if nxt_r > new_r or (nxt_r == new_r and nxt_c > new_c):
                         nxt_r, nxt_c = new_r, new_c
 
     return nxt_r, nxt_c
