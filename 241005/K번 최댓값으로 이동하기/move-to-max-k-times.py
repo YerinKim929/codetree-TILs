@@ -7,11 +7,12 @@ def in_range(r, c):
 def bfs(cur_r, cur_c):
 
     visited = [[0]*n for _ in range(n)]
+    visited[cur_r][cur_c] = 1
 
     dxs = [-1, 1, 0, 0]
     dys = [0, 0, -1, 1]
 
-    q = deque([[cur_c, cur_r]])
+    q = deque([[cur_r, cur_c]])
     nxt_r, nxt_c = -1, -1
     max_num = 0
 
@@ -40,17 +41,20 @@ board = [
 ]
 
 start_r, start_c = list(map(int, sys.stdin.readline().split()))
-cur_r = start_r-1
-cur_c = start_c-1
+start_r -= 1
+start_c -= 1
+
+cur_r = start_r
+cur_c = start_c
 
 for i in range(k):
 
-    if cur_r == -1:
-        break
-
     cur_r, cur_c = bfs(cur_r, cur_c)
 
-if cur_r == -1:
-    print(start_r, start_c)
-else:
-    print(cur_r+1, cur_c+1)
+    if cur_r == -1:
+        break
+    else:
+        start_r = cur_r
+        start_c = cur_c
+
+print(start_r+1, start_c+1)
