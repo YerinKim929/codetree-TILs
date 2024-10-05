@@ -1,4 +1,6 @@
 import sys
+sys.setrecursionlimit(2500)
+
 
 def in_range(a):
     return 0 <= a[0] < N and 0 <= a[1] < M
@@ -27,7 +29,6 @@ town = [
 K = 1
 pre_num = 0
 max_k = 1
-sys.setrecursionlimit(N*M)
 
 while True:
 
