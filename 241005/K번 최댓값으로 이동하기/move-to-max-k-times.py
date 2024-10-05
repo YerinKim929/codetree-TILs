@@ -40,14 +40,17 @@ board = [
 ]
 
 start_r, start_c = list(map(int, sys.stdin.readline().split()))
-start_r -= 1
-start_c -= 1
+cur_r = start_r-1
+cur_c = start_c-1
 
 for i in range(k):
 
-    if start_r == -1:
+    if cur_r == -1:
         break
 
-    start_r, start_c = bfs(start_r, start_c)
+    cur_r, cur_c = bfs(cur_r, cur_c)
 
-print(start_r+1, start_c+1)
+if cur_r == -1:
+    print(start_r, start_c)
+else:
+    print(cur_r+1, cur_c+1)
