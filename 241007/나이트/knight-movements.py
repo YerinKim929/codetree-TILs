@@ -28,4 +28,7 @@ while q:
             q.append([new_x, new_y])
 
 
-print(visited[end[0]][end[1]] if visited[end[0]][end[1]] else -1)
+if start == end:
+    print(0)
+else:
+    print(visited[end[0]][end[1]] if visited[end[0]][end[1]] else -1)
