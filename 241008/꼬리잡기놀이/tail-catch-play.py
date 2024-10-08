@@ -66,21 +66,20 @@ def throw_ball(rnd):
 
     # 2-2. 우 (round 1 ~ n) 상 (round n + 1 ~ 2n) 좌 (round 3n ~ 2n + 1) 하 (round 4n ~ 3n + 1)   
     # return [r1, c1, r2, c2]
-    if 1 <= rnd < n:
+    if 1 <= rnd <= n:
         return [rnd-1, 0, rnd-1, n-1]
-    elif n+1 <= rnd < 2*n:
-        rd = rnd%(2*n)
+    elif n+1 <= rnd <= 2*n:
+        rd = rnd-n
         return [n-1, rd-1, 0, rd-1]
-    elif 2*n+1 <= rnd < 3*n:
-        rd = rnd%(2*n)
+    elif 2*n+1 <= rnd <= 3*n:
+        rd = rnd-2*n
         return [n-rd, n-1, n-rd, 0]
     else:
-        rd = rnd%(3*n)
+        rd = rnd-3*n
         return [0, n-rd, n-1, n-rd]
 
 
 def check_people(ball):
-    people = [1, 2, 3]
 
     start_r, end_r, direct_r = None, None, 1
     start_c, end_c, direct_c = None, None, 1
@@ -110,6 +109,15 @@ def fine_k(now):
     visited = [[0]*n for _ in range(n)]
     visited[now[0]][now[1]] = -1
 
+    if board[now[0]][now[1]] == 1:
+        board[now[0]][now[1]] = 3
+        i = heads.index(now)
+        head = tails[i]
+        board[head[0]][head[1]] = 1
+        tails[i] = heads[i]
+        heads[i] = head
+        return 1
+
     while q:
 
         cur = q.popleft()
@@ -117,7 +125,7 @@ def fine_k(now):
         for dx, dy in zip(dxs, dys):
             new_x, new_y = cur[0] + dx, cur[1] + dy
 
-            if in_range(new_x, new_y) and not visited[new_x][new_y]:
+            if in_range(new_x, new_y) and board[new_x][new_y] > 0 and not visited[new_x][new_y]:
                 if visited[cur[0]][cur[1]] == -1:
                     visited[new_x][new_y] = 1
                 else:
@@ -154,8 +162,7 @@ for r in range(n):
     for c in range(n):
         if board[r][c] == 1:
             heads.append([r, c])
-H = len(heads)
-tails = [0]*H
+tails = [0]*m
 total_score = 0
 
 
@@ -163,7 +170,7 @@ total_score = 0
 for rnd in range(1, k+1):
     
     # 1. 먼저 각 팀은 머리 사람 따라서 한 칸 이동
-    for i in range(H):
+    for i in range(m):
         move_head(i)
 
     # 2-1. 각 라운드마다 공이 정해진 선 따라 던져짐, n개의 행과 n개의 열 
