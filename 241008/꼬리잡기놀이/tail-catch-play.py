@@ -20,10 +20,21 @@ def move_head(i):
     for dx, dy in zip(dxs, dys):
         new_x, new_y = head[0] + dx, head[1] + dy
 
-        if in_range(new_x, new_y) and board[new_x][new_y] == 4:
-            board[new_x][new_y] = 1
-            board[head[0]][head[1]] = 2
-            heads[i] = [new_x, new_y]
+        if in_range(new_x, new_y):
+            if board[new_x][new_y] == 4:
+                board[new_x][new_y] = 1
+                board[head[0]][head[1]] = 2
+                heads[i] = [new_x, new_y]
+            elif board[new_x][new_y] == 3:
+                board[new_x][new_y] = 1
+                heads[i] = [new_x, new_y]
+                for dxx, dyy in zip(dxs, dys):
+                    new_xx, new_yy = new_x+dxx, new_y+dyy
+                    if in_range(new_xx, new_yy) and board[new_xx][new_yy] == 2:
+                        board[new_xx][new_yy] = 3
+                        tails[i] = [new_xx, new_yy]
+                board[head[0]][head[1]] = 2
+                return
 
     # 꼬리 사람 이동 
     if tails[i]:
@@ -140,7 +151,8 @@ def fine_k(now):
                     tails[i] = heads[i]
                     heads[i] = head
                     return visited[new_x][new_y] + 1
-                q.append([new_x, new_y])
+                if board[new_x][new_y] != 3:
+                    q.append([new_x, new_y])
 
     # 3-3. 아무도 공 받지 못하면 아무 점수도 획득 못함 
     return 0
