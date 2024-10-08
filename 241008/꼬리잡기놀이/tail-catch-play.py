@@ -73,8 +73,7 @@ def throw_ball(rnd):
 
     # 2-3. 4n 번째 라운드 넘어가는 경우, 다시 1번째 라운드 방향으로 돌아감 
     if rnd > 4*n:
-        rnd %= 4*n
-
+        rnd = rnd%(4*n) if rnd%(4*n) != 0 else 4*n
     # 2-2. 우 (round 1 ~ n) 상 (round n + 1 ~ 2n) 좌 (round 3n ~ 2n + 1) 하 (round 4n ~ 3n + 1)   
     # return [r1, c1, r2, c2]
     if 1 <= rnd <= n:
@@ -104,7 +103,7 @@ def check_people(ball):
     if ball[1] <= ball[3]:
         start_c, end_c =  ball[1], ball[3]+1
     else:
-        start_r, end_r = ball[1], ball[3]-1
+        start_c, end_c = ball[1], ball[3]-1
         direct_c = -1
 
     for r in range(start_r, end_r, direct_r):
@@ -137,13 +136,19 @@ def fine_k(now):
             new_x, new_y = cur[0] + dx, cur[1] + dy
 
             if in_range(new_x, new_y) and board[new_x][new_y] > 0 and not visited[new_x][new_y]:
-                if visited[cur[0]][cur[1]] == -1:
-                    visited[new_x][new_y] = 1
-                else:
-                    visited[new_x][new_y] = visited[cur[0]][cur[1]] + 1
+                if board[new_x][new_y] == 2:
+                    q.append([new_x, new_y])
+                    if visited[cur[0]][cur[1]] == -1:
+                        visited[new_x][new_y] = 1
+                    else:
+                        visited[new_x][new_y] = visited[cur[0]][cur[1]] + 1
 
                 # 3-4. 공을 획득한 팀의 경우 머리사람과 꼬리사람이 바뀜 (방향 바뀜)
-                if board[new_x][new_y] == 1:
+                if board[cur[0]][cur[1]] == 2 and board[new_x][new_y] == 1:
+                    if visited[cur[0]][cur[1]] == -1:
+                        visited[new_x][new_y] = 1
+                    else:
+                        visited[new_x][new_y] = visited[cur[0]][cur[1]] + 1
                     board[new_x][new_y] = 3
                     i = heads.index([new_x, new_y])
                     head = tails[i]
@@ -151,8 +156,7 @@ def fine_k(now):
                     tails[i] = heads[i]
                     heads[i] = head
                     return visited[new_x][new_y] + 1
-                if board[new_x][new_y] != 3:
-                    q.append([new_x, new_y])
+
 
     # 3-3. 아무도 공 받지 못하면 아무 점수도 획득 못함 
     return 0
