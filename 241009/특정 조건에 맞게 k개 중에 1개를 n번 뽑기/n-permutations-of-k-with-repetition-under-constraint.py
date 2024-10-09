@@ -12,6 +12,8 @@ def choose(curr_num):
         return
 
     for i in range(1, K+1):
+        if curr_num >= 2 and answer[curr_num-1] == i and answer[curr_num-2] == i:
+            continue
         answer.append(i)
         choose(curr_num + 1)
         answer.pop()
