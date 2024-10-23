@@ -19,6 +19,8 @@ def choose(i, goal):
             copy_goal = copy.deepcopy(goal)
             copy_goal[j] += nums[i]
             choose(i+1, copy_goal)
+        else:
+            choose(n, goal)
 
 n, m, k = map(int, sys.stdin.readline().split())
 nums = list(map(int, sys.stdin.readline().split()))
