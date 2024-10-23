@@ -2,7 +2,7 @@ import sys
 
 def check_already(line, already):
     for al in already:
-        if not(line[1] < al[0] or al[1] <= line[0]):
+        if not(line[1] < al[0] or al[1] < line[0]):
             return 0
     return 1
 
