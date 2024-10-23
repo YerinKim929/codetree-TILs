@@ -2,9 +2,8 @@ import sys
 
 def check_already(line, already):
     for al in already:
-        for i in range(al[0], al[1]+1):
-            if line[0] <= i <= line[1]:
-                return 0
+        if not(line[1] < al[0] or al[1] <= line[0]):
+            return 0
     return 1
 
 def how_many_lines(k, already):
@@ -14,11 +13,12 @@ def how_many_lines(k, already):
         answer = max(answer, len(already))
         return
 
-    for i in range(k, n):
-        if check_already(lines[i], already):
-            how_many_lines(k+1, already+[lines[i]])
-
     how_many_lines(k+1, already)
+
+    if check_already(lines[k], already):
+        how_many_lines(k+1, already+[lines[k]])
+
+
 
 n = int(input())
 lines = [
