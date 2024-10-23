@@ -1,13 +1,14 @@
 import sys 
 from collections import deque
 from itertools import combinations
+import copy
 dxs = [1, -1, 0, 0]
 dys = [0, 0, 1, -1]
 
 def in_range(a):
     return 0 <= a[0] < n and 0 <= a[1] < n
 
-def bfs(start):
+def bfs(start, v):
 
     q = deque([start])
 
@@ -16,8 +17,8 @@ def bfs(start):
 
         for dx, dy in zip(dxs, dys):
             nxt = [cur[0]+dx, cur[1]+dy]
-            if in_range(nxt) and not board[nxt[0]][nxt[1]] and not visited[nxt[0]][nxt[1]]:
-                visited[nxt[0]][nxt[1]] = 1
+            if in_range(nxt) and not board[nxt[0]][nxt[1]] and not v[nxt[0]][nxt[1]]:
+                v[nxt[0]][nxt[1]] = 1
                 q.append(nxt)
 
 
@@ -44,22 +45,24 @@ result = 0
 for start in starts:
     if not visited[start[0]][start[1]]:
         visited[start[0]][start[1]] = 1
-        bfs(start)
+        bfs(start, visited)
 
 for rocks in rocks_out:
+    copy_visited = copy.deepcopy(visited)
     for rock in rocks:
         board[rock[0]][rock[1]] = 0
 
     for rock in rocks:
-        visited[rock[0]][rock[1]] = 1
-        bfs(rock)
+        copy_visited[rock[0]][rock[1]] = 1
+        bfs(rock, copy_visited)
 
-    tmp = sum(map(sum, visited))
+    tmp = sum(map(sum, copy_visited))
     if result < tmp:
         result = tmp
 
     for rock in rocks:
         board[rock[0]][rock[1]] = 1
-        visited[rock[0]][rock[1]] = 0
+
+
 
 print(result)
