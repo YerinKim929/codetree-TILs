@@ -1,21 +1,22 @@
 import sys
 
-def choose(i):
+def choose(i, r):
 
     global result
 
     if i == n:
         result = max(result, sum(answer))
         return
-        
-    for r in range(n):
+
+    
+    if not visited_r[r]:
         for c in range(n):
-            if not visited_r[r] and not visited_c[c]:
+            if not visited_c[c]:
                 answer.append(board[r][c])
                 visited_r[r] = 1
                 visited_c[c] = 1
 
-                choose(i+1)
+                choose(i+1, r+1)
 
                 answer.pop()
                 visited_r[r] = 0
@@ -32,5 +33,5 @@ visited_c = [0]*n
 answer = []
 result = 0
 
-choose(0)
+choose(0, 0)
 print(result)
