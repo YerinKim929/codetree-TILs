@@ -14,6 +14,9 @@ def is_right(nums):
 
 def choose_nums(i, nums):
     global result
+
+    if len(result) == 1:
+        return
     
     if i == n:
         result.append("".join(map(str,nums)))
