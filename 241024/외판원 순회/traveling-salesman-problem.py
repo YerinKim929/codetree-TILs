@@ -3,7 +3,6 @@ import sys
 def choose(i):
     global result
 
-
     for j in range(n):
 
         if sum(visited) == n and j == 0:
@@ -14,7 +13,7 @@ def choose(i):
             answer.pop()
             return
 
-        if i != j and not visited[j]:
+        if board[i][j] != 0 and not visited[j]:
             answer.append(board[i][j])
             visited[j] = 1
             choose(j)
