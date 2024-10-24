@@ -5,18 +5,15 @@ def choose_nums(i, xor_nums):
     global result
 
     if i == m:
-        xor = None
+        xor = 0
         for x in xor_nums:
-            if xor == None:
-                xor = x
-            else:
-                xor ^= x
+            xor ^= x
         if result == 0 or result < xor:
             result = xor
         return 
 
-    for j in range(1, n+1):
-        xor_nums.append(j)
+    for j in range(0, n):
+        xor_nums.append(nums[j])
         choose_nums(i+1, xor_nums)
         xor_nums.pop()
 
